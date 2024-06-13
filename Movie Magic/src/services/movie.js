@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const { Movie } = require('../models/Movie');
+const { search } = require('../controllers/catalog');
 
 const filePath = './data/database.json'
 
@@ -66,6 +67,8 @@ async function createMovie(movieData) {
 function uuid() {
     return 'xxxx-xxxx'.replace(/x/g, () => (Math.random() * 16 | 0).toString(16))
 }
+
+
 module.exports = {
     getAllMovies,
     getMovieById,

@@ -140,7 +140,7 @@ footer {
     color:red;
 }
 
-.error input, .error textarea{
+.error input.inputFields, .error textarea.inputFields{
     border-color: red;
 }
 

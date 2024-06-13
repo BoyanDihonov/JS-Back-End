@@ -1,0 +1,36 @@
+<section id="search">
+    <h1>Search</h1>
+    <form action method class="form">
+        <input type="text" class="search" name="search" placeholder="Title...">
+        <input type="text" name="genre" class="genre" placeholder="Genre...">
+        <input type="number" name="year" class="year" placeholder="Year...">
+        <input type="submit" value="search">
+    </form>
+</section>
+
+<section id="catalog">
+    {{#if movie}}
+    <div class="band">
+
+        <!-- If there are posts for movie in the database display each of them -->
+        <div class="flip flip-vertical">
+            <div class="front">
+                <img src="{{movie.imageURL}}"
+                    alt="{{movie.title}}">
+            </div>
+            <div class="back">
+                <h1>{{movie.title}}</h1>
+                <h2>Genre: {{movie.genre}}</h2>
+                <p>Description: {{movie.description}}
+                </p>
+                <a href="{{movie.imageURL}}" class="details">{{movie.details}}</a>
+            </div>
+        </div>
+        {{else}}
+        <div class="no-posts">
+            <p class="no-offer">There are no movies matched...</p>
+        </div>
+
+    </div>
+    {{/if}}
+</section>
