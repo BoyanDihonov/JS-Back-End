@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const { body, validationResult } = require('express-validator')
 
-const { getRecent } = require('../services/stone');
-const { isUser } = require('../middlewares/guards');
 const { parseError } = require('../util')
+const { isUser } = require('../middlewares/guards');
+const { create } = require('../services/stone');
 
 //TODO replace with real router according to exam description
+
 const stoneRouter = Router();
 
 stoneRouter.get('/create', isUser(), async (req, res) => {
@@ -16,7 +17,7 @@ stoneRouter.post('/create', isUser(),
     body('name').trim().isLength({ min: 2 }).withMessage('name must be at least 2 characters long'),
     body('category').trim().isLength({ min: 3 }).withMessage('category must be at least 2 characters long'),
     body('color').trim().isLength({ min: 2 }).withMessage('color must be at least 2 characters long'),
-    body('image').trim().isURL().withMessage('image must be a valid URL'),
+    body('image').trim().isURL({ require_tld: false }).withMessage('image must be a valid URL'),
     body('location').trim().isLength({ min: 5, max: 15 }).withMessage('location must be between 5 and 15 characters long'),
     body('formula').trim().isLength({ min: 3, max: 30 }).withMessage('formula must be between 3 and 30 characters long'),
     body('description').trim().isLength({ min: 10 }).withMessage('description must be at least 10 characters long'),

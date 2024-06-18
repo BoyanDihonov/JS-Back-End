@@ -14,7 +14,7 @@ async function getById(id) {
     return Stone.findById(id).lean()
 }
 
-async function create(Stone, authorId) {
+async function create(data, authorId) {
     //TODO extract properties from view model
     const record = new Stone({
         name: data.name,
