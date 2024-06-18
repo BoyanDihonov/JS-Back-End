@@ -38,4 +38,34 @@ userRouter.post('/register', isGuest(),
         }
     })
 
+userRouter.get('/login', isGuest(),
+    (req, res) => {
+        res.render('login');
+    });
+
+userRouter.post('/login', isGuest(),
+    body('email').trim(),
+    body('password').trim(),
+
+    async (req, res) => {
+        const { email, password } = req.body;
+
+        try {
+
+            const result = await login(email, password);
+            const token = createToken(result)
+
+            res.cookie('token', token)
+
+            res.redirect('/')
+        } catch (err) {
+            res.render('login', { data: { email }, errors: parseError(err).errors })
+        }
+    })
+
+    userRouter.get('/logout', (req, res) => {
+        res.clearCookie('token');
+        res.redirect('/')
+    });
+
 module.exports = { userRouter }
