@@ -1,6 +1,6 @@
 const { Stone } = require('../models/Stone')
 
-//TODO replace with real Stone service according to exam description
+
 
 async function getAll() {
     return Stone.find().lean()
@@ -15,7 +15,7 @@ async function getById(id) {
 }
 
 async function create(data, authorId) {
-    //TODO extract properties from view model
+
     const record = new Stone({
         name: data.name,
         category: data.category,
@@ -33,10 +33,10 @@ async function create(data, authorId) {
 
 }
 
-async function update(id, Stone, userId) {
+async function update(id, data, userId) {
     const record = await Stone.findById(id);
 
-    if (record) {
+    if (!record) {
         throw new ReferenceError('Record not found' + id)
     }
 
@@ -57,12 +57,30 @@ async function update(id, Stone, userId) {
     return record
 }
 
+async function likeStone(stoneId,userId){
+    const record = await Stone.findById(stoneId);
 
-//TODO add function to only update  likes
+    if (!record) {
+        throw new ReferenceError('Record not found' + stoneId)
+    }
+
+    if (record.author.toString() == userId) {
+        throw new Error('Access denied')
+    }
+
+    if (record.likes.find(l=> l.toString() == userId)){
+        return ;
+    }
+
+    record.likes.push(userId);
+
+    await record.save();
+}
+
 async function deleteById(id, userId) {
     const record = await Stone.findById(id);
 
-    if (record) {
+    if (!record) {
         throw new ReferenceError('Record not found' + id)
     }
 
@@ -79,5 +97,6 @@ module.exports = {
     getById,
     update,
     deleteById,
-    getRecent
+    getRecent,
+    likeStone
 }
