@@ -1,12 +1,11 @@
  <li class="card">
-    <img src="/static/images/animal2.jpg" />
+    <img src="{{image}}" />
     <p>
-        <strong>Name: </strong><span class="name">Poppy</span>
+        <strong>Name: </strong><span class="name">{{name}}</span>
     </p>
     <p>
-        <strong>Location: </strong><span class="location">Chester Zoo</span>
+        <strong>Location: </strong><span class="location">{{location}}</span>
     </p>
-    <p><strong>Need of:</strong><span class="need-of">Enrichment
-            Items</span></p>
-    <a class="details-btn" href="#">Details</a>
+    <p><strong>Need of:</strong><span class="need-of">{{need}}</span></p>
+    <a class="details-btn" href="/catalog/{{_id}}">Details</a>
 </li>
