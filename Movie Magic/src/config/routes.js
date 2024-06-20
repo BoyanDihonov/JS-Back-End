@@ -1,19 +1,29 @@
-const { Router } = require('express')
+const { isUser } = require('../middlewares/guards');
 const { home, details, search } = require('../controllers/catalog');
 const { about } = require('../controllers/about');
-const { createGet, createPost } = require('../controllers/movie');
+const { movieRouter } = require('../controllers/movie');
+const { createGet: createCastGet, createPost: createCastPost } = require('../controllers/cast');
 const { notFound } = require('../controllers/404');
+const { attachGet, attachPost } = require('../controllers/attach');
+const { userRouter } = require('../controllers/user');
 
+function configRoutes(app) {
+    app.get('/', home);
+    app.get('/search', search);
+    app.get('/details/:id', details);
+    
+    app.get('/attach/:id', isUser(), attachGet);
+    app.post('/attach/:id', isUser(), attachPost);
 
-const router = Router()
+    app.use(movieRouter);
 
-router.get('/', home);
-router.get('/details/:id', details);
-router.get('/about', about)
-router.get('/create', createGet)
-router.get('/search', search)
-router.post('/create', createPost)
+    app.get('/create/cast', isUser(), createCastGet);
+    app.post('/create/cast', isUser(), createCastPost);
+    
+    app.use(userRouter);
+    
+    app.get('/about', about);
+    app.get('*', notFound);
+}
 
-router.get('*', notFound)
-
-module.exports = { router }
+module.exports = { configRoutes };

@@ -1,5 +1,5 @@
-module.exports ={
-    about: (req,res) =>{
-        res.render('about')
+module.exports = {
+    about: (req, res) => {
+        res.render('about');
     }
-}
+};
