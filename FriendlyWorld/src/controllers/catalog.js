@@ -18,6 +18,8 @@ catalogRouter.get('/catalog/:id', async (req, res) => {
         return
     }
 
+     
+
     res.render('details', { animal })
 })
 
