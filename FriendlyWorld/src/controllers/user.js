@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { body, validationResult } = require('express-validator')
-const { login } = require('../services/User');
+const { login, register } = require('../services/User');
 const { createToken } = require('../services/jwt');
 const { isGuest } = require('../middlewares/guards')
 const { parseError } = require('../util')
@@ -46,17 +46,14 @@ userRouter.post('/register', isGuest(),
             if (validation.errors.length) {
                 throw validation.errors
             }
+            const result = await register(email, password)
+            const token = createToken(result)
+            res.cookie('token', token)
 
-
-            //     /*
-            //     const result = await register(email, password)
-            //     const token = createToken(result)
-            //     res.cookie('token', token)
-
-            //     res.redirect('/')
+            res.redirect('/')
         } catch (err) {
             res.render('register', { data: { email }, errors: parseError(err).errors })
-            //     */
+
         }
     }
 )
