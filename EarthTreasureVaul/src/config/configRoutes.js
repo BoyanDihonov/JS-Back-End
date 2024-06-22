@@ -6,7 +6,9 @@ function configRoutes(app) {
     app.use(homeRouter)
     app.use(userRouter)
     app.use(stoneRouter)
-
+    app.get('*', (req, res) => {
+        res.render('404')
+    })
 }
 
 module.exports = { configRoutes }
