@@ -18,7 +18,9 @@ catalogRouter.get('/catalog/:id', async (req, res) => {
         return
     }
 
-     
+    animal.votes = animal.donateList.length
+    animal.hasUser = res.locals.hasUser
+    animal.isAuthor = req.user?._id == animal.author.toString()
 
     res.render('details', { animal })
 })
