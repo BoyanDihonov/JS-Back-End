@@ -6,14 +6,26 @@ async function getAll() {
     return Animal.find().lean()
 }
 
+async function getByAuthorId(authorId) {
+    return Animal.find({ author: authorId }).lean()
+
+}
+
 async function getById(id) {
     return Animal.findById(id).lean()
 }
 
 async function create(data, authorId) {
-    //TODO extract properties from view model
     const record = new Animal({
-        prop: data.prop,
+        name: data.name,
+        years: data.years,
+        kind: data.kind,
+        image: data.image,
+        need: data.need,
+        location: data.location,
+        description: data.description,
+        donations: data.donations,
+
         author: authorId
     });
 
@@ -61,5 +73,6 @@ module.exports = {
     getById,
     create,
     update,
-    deleteById
+    deleteById,
+    getByAuthorId
 }

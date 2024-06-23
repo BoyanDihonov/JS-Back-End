@@ -31,13 +31,13 @@ const AnimalSchema = new Schema({
         type: String,
         required: true,
     },
-    donations: [
-        {
-            type: Types.ObjectId,
-            ref: 'User',
-            required: true
-        }
-    ],
+    donations:
+    {
+        type: Types.ObjectId,
+        required: true,
+        default: []
+    }
+    ,
     author: {
         type: Types.ObjectId,
         ref: 'User'

@@ -40,9 +40,11 @@
             <a href="/edit/{{_id}}" id="edit-btn">Edit</a>
             <a href="/delete/{{_id}}" id="delete-btn">Delete</a>
         {{/if}}
-        
-            <a href="#" id="donation-btn">Donation</a>
+            {{#if !hasDonated}}
+            <a href="" id="donation-btn">Donation</a>
+            {{else}}
             <p id="already-donated">You already donated!</p>
+            {{/if}}
         </div>
     </div>
 </section>
